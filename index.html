@@ -1,21 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <script src="js/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <style>
+        .videoWrapper {
+            position: relative;
+            width: 100%;
+        }
+        
+        .videoWrapper video {
+            width: 100%;
+        }
+        
+        .videoOpt-wrap {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 40px;
+            padding: 0 25px;
+            background: #000;
+        }
+        
+        .slider.slider-horizontal {
+            width: 100%;
+        }
+        
+        #pauseBtn {
+            display: none;
+        }
+        
+        #largeBtn {
+            display: none;
+        }
+        
+        .videoOpt-wrap .videoOptTop div {
+            float: left;
+        }
+        
+        .mediaBtn1 {
+            width: 5%;
+        }
+        
+        .mediaBtn2 {
+            width: 90%;
+            padding: 0px 4%;
+        }
+        
+        .mediaBtn3 {
+            width: 5%;
+        }
+        
+        .clearfix:after {
+            visibility: hidden;
+            display: block;
+            font-size: 0;
+            content: " ";
+            clear: both;
+            height: 0;
+        }
+        
+        .clearfix {
+            display: inline-block;
+        }
+        /* start commented backslash hack \*/
+        
+        * html .clearfix {
+            height: 1%;
+        }
+        
+        .clearfix {
+            display: block;
+        }
+        
+        #slider-range {
+            width: 100%;
+        }
+        /* close commented backslash hack */
+        
+        span#vidTimimg {
+            color: #fff;
+            font-size: 16px;
+            text-align: center;
+        }
+    </style>
 </head>
+
 <body>
-  
-<div class="container">
-  <h1>video Trimmer</h1>      
-  <div class="videoWrapper">
-     <video src="mov_bbb.mp4"></video> 
-   </div>          
-</div>
+
+    <div class="container">
+        <h1>video Trimmer</h1>
+        <div class="videoWrapper">
+            <video id="video" onloadedmetadata="videoFunction()" src="trailer.mp4"></video>
+            <input type="hidden" id="vidfinalStarttime">
+            <input type="hidden" id="vidfinalEndtime">
+            <div class="videoOpt-wrap clearfix">
+                <div class="videoOptTop clearfix">
+                    <div class="mediaBtn1">
+                        <a href="javascript:void(0);" id="playBtn">Play</a>
+                        <a href="javascript:void(0);" id="pauseBtn">Pause</a>
+                    </div>
+                    <div class="mediaBtn2">
+                        <div id="slider-range"></div>
+                    </div>
+                    <div class="mediaBtn3">
+                        <a href="javascript:void(0);" id="full-screen">Chota</a>
+                    </div>
+                </div>
+                <div class="videoOptBottom clearfix">
+                    <span id="vidTimimg" class="timingTxt"></span>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
+<script>
+    var timing = '';
+    var vid = document.getElementById('video');
+    var playButton = document.getElementById("playBtn");
+    var pauseButton = document.getElementById("pauseBtn");
+    var fullScreenButton = document.getElementById('full-screen');
+    playButton.addEventListener('click', function() {
+        if (vid.paused == true) {
+            vid.play();
+            playButton.style.display = 'none';
+            pauseButton.style.display = 'block';
+        }
+    })
+    pauseButton.addEventListener('click', function() {
+        if (vid.paused == false) {
+            vid.pause();
+            pauseButton.style.display = 'none';
+            playButton.style.display = 'block';
+        }
+    })
+    fullScreenButton.addEventListener("click", function() {
+        if (vid.requestFullscreen) {
+            vid.requestFullscreen();
+        } else if (vid.mozRequestFullScreen) {
+            video.mozRequestFullScreen(); // Firefox
+        } else if (vid.webkitRequestFullscreen) {
+            vid.webkitRequestFullscreen(); // Chrome and Safari
+        }
+    });
+
+    function videoFunction() {
+
+        var timing = vid.duration;
+        $("#slider-range").slider({
+            range: true,
+            min: 0,
+            max: timing,
+            values: [0, timing],
+            slide: function(event, ui) {
+                updateTime(ui.values[0]);
+                $('#vidTimimg').text(ui.values[0] + ':' + ui.values[1]);
+                $('#vidfinalStarttime').val(ui.values[0]);
+                $('#vidfinalEndtime').val(ui.values[1]);
+            }
+        });
+    }
+
+    function updateTime(time) {
+        vid.currentTime = time;
+    }
+</script>
+
 </html>
