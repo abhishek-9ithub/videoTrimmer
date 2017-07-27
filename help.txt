@@ -1,3 +1,6 @@
 http://blog.teamtreehouse.com/building-custom-controls-for-html5-videos
 https://support.google.com/richmedia/answer/2792622?hl=en&ref_topic=2792545
 https://gingertech.net/2009/08/19/jumping-to-time-offsets-in-videos/
+https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Animating_textures_in_WebGL
+http://craftymind.com/factory/html5video/CanvasVideo.html
+https://www.html5rocks.com/en/tutorials/video/basics/
