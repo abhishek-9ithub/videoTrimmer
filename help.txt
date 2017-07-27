@@ -4,3 +4,4 @@ https://gingertech.net/2009/08/19/jumping-to-time-offsets-in-videos/
 https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Animating_textures_in_WebGL
 http://craftymind.com/factory/html5video/CanvasVideo.html
 https://www.html5rocks.com/en/tutorials/video/basics/
+http://www.inwebson.com/html5/custom-html5-video-controls-with-jquery/
